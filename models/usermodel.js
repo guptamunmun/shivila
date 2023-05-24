@@ -1,19 +1,47 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require("mongoose")
 
-// Define the User schema
-const userSchema = new Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  mobile: { type: String, required: true },
-  duration: { type: Number },
-  subscription:{
-    startDate: {type:Date},
-    endDate: {type:Date}
-  }
-});
+const userSchema = new mongoose.Schema({
 
-// Create the User model
-const User = mongoose.model('User', userSchema);
+   
+    name: {
+        type: String,
+        required: true,
+        uppercase : true,
+        trim: true
+    },
+    phone: {
+        type: String,
+        required: true,
+        unique : true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    address: {
+        street: {type: String, trim: true},
+        city: {type: String, trim: true},
+        pincode: {type: String, trim: true}
+      },
+       deletedAt: {
+        type: Date,
+        trim: true
+    }, //  the document is deleted
+    isDeleted: { 
+        type: Boolean, 
+        default: false 
+    },
 
-module.exports = User;
+}, { timestamps: true })
+
+
+module.exports = mongoose.model('User', userSchema) //users
